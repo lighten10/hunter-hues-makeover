@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Layout from '@/components/Layout';
-import { Send as SendIcon, Upload, Zap, Clock, FileText, Users } from 'lucide-react';
+import { Send as SendIcon, Upload, Zap, Clock, FileText, Users, AlertTriangle, Image } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const Send = () => {
   const { toast } = useToast();
@@ -10,8 +11,9 @@ const Send = () => {
     bodyHtml: '',
     includeResume: false,
     resumeId: '',
-    delaySec: '10 seconds between emails\n2 minutes between batches',
-    recipientsRaw: ''
+    delaySec: '',
+    recipientsRaw: '',
+    trackingImage: null as File | null
   });
 
   const [resumes] = useState([
@@ -112,17 +114,50 @@ const Send = () => {
                     <Clock className="w-4 h-4 inline mr-2" />
                     Delay configuration
                   </label>
-                  <textarea
-                    id="delay"
-                    value={formData.delaySec}
-                    onChange={(e) => setFormData({...formData, delaySec: e.target.value})}
-                    className="hunter-textarea min-h-[80px]"
-                    placeholder="Enter delay settings:
-10 seconds between emails
-2 minutes between batches
-Random delay: 5-15 seconds"
-                  />
+                  <Select value={formData.delaySec} onValueChange={(value) => setFormData({...formData, delaySec: value})}>
+                    <SelectTrigger className="hunter-select">
+                      <SelectValue placeholder="Select delay between emails" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="4">4 seconds</SelectItem>
+                      <SelectItem value="6">6 seconds</SelectItem>
+                      <SelectItem value="8">8 seconds</SelectItem>
+                      <SelectItem value="10">10 seconds</SelectItem>
+                      <SelectItem value="12">12 seconds</SelectItem>
+                      <SelectItem value="14">14 seconds</SelectItem>
+                      <SelectItem value="16">16 seconds</SelectItem>
+                      <SelectItem value="18">18 seconds</SelectItem>
+                      <SelectItem value="20">20 seconds</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
+              </div>
+
+              {/* Tracking Image Upload */}
+              <div>
+                <label htmlFor="trackingImage" className="block text-sm font-medium mb-2">
+                  <Image className="w-4 h-4 inline mr-2" />
+                  Email Tracking Image <span className="text-muted-foreground">(Small icon for open tracking)</span>
+                </label>
+                <input
+                  id="trackingImage"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setFormData({...formData, trackingImage: e.target.files?.[0] || null})}
+                  className="hunter-input"
+                />
+                {!formData.trackingImage && (
+                  <div className="flex items-center gap-2 mt-2 p-3 bg-warning/10 border border-warning/20 rounded-lg">
+                    <AlertTriangle className="w-4 h-4 text-warning flex-shrink-0" />
+                    <span className="text-sm text-warning">No tracking image → opens won't be tracked</span>
+                  </div>
+                )}
+                {formData.trackingImage && (
+                  <div className="mt-2 text-sm text-success flex items-center gap-2">
+                    <div className="w-2 h-2 bg-success rounded-full"></div>
+                    Tracking enabled: {formData.trackingImage.name}
+                  </div>
+                )}
               </div>
 
               <div>
