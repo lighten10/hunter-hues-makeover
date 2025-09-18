@@ -10,7 +10,7 @@ const Send = () => {
     bodyHtml: '',
     includeResume: false,
     resumeId: '',
-    delaySec: 10,
+    delaySec: '10 seconds between emails\n2 minutes between batches',
     recipientsRaw: ''
   });
 
@@ -110,20 +110,18 @@ const Send = () => {
                 <div>
                   <label htmlFor="delay" className="block text-sm font-medium mb-2">
                     <Clock className="w-4 h-4 inline mr-2" />
-                    Delay between emails
+                    Delay configuration
                   </label>
-                  <select
+                  <textarea
                     id="delay"
                     value={formData.delaySec}
-                    onChange={(e) => setFormData({...formData, delaySec: Number(e.target.value)})}
-                    className="hunter-select"
-                  >
-                    <option value={5}>5 seconds</option>
-                    <option value={8}>8 seconds</option>
-                    <option value={10}>10 seconds</option>
-                    <option value={12}>12 seconds</option>
-                    <option value={15}>15 seconds</option>
-                  </select>
+                    onChange={(e) => setFormData({...formData, delaySec: e.target.value})}
+                    className="hunter-textarea min-h-[80px]"
+                    placeholder="Enter delay settings:
+10 seconds between emails
+2 minutes between batches
+Random delay: 5-15 seconds"
+                  />
                 </div>
               </div>
 

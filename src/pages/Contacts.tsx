@@ -232,6 +232,16 @@ const Contacts = () => {
                       <div>
                         <div className="font-medium">{contact.firstName}</div>
                         <div className="text-sm text-muted-foreground">{contact.email}</div>
+                        {contact.linkedin && (
+                          <a 
+                            href={contact.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-primary hover:underline flex items-center gap-1 mt-1"
+                          >
+                            LinkedIn Profile →
+                          </a>
+                        )}
                       </div>
                     </td>
                     <td>

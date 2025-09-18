@@ -9,6 +9,8 @@ import Register from "./pages/Register";
 import Contacts from "./pages/Contacts";
 import Send from "./pages/Send";
 import SMTP from "./pages/SMTP";
+import About from "./pages/About";
+import Notify from "./pages/Notify";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,7 +27,9 @@ const App = () => (
           <Route path="/register" element={<Register />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/send" element={<Send />} />
+          <Route path="/notify" element={<Notify />} />
           <Route path="/smtp" element={<SMTP />} />
+          <Route path="/about" element={<About />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

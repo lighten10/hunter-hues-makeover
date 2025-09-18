@@ -13,6 +13,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const navigation = [
     { name: 'Send', href: '/send', icon: Send },
     { name: 'Contacts', href: '/contacts', icon: Users },
+    { name: 'Notify', href: '/notify', icon: Mail },
     { name: 'SMTP', href: '/smtp', icon: Settings },
   ];
 
@@ -73,6 +74,31 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <main className="max-w-7xl mx-auto px-6 py-8">
         {children}
       </main>
+
+      {/* Footer */}
+      <footer className="bg-muted/30 border-t border-border mt-16">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-6 bg-gradient-primary rounded-lg flex items-center justify-center">
+                <Mail className="w-4 h-4 text-white" />
+              </div>
+              <span className="font-semibold text-lg">Hunter Pro</span>
+            </div>
+            <div className="flex items-center gap-6">
+              <Link 
+                to="/about" 
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                About Us
+              </Link>
+              <span className="text-sm text-muted-foreground">
+                © 2024 Hunter Pro. All rights reserved.
+              </span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
